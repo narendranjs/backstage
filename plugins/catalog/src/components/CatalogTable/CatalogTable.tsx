@@ -79,7 +79,7 @@ const refCompare = (a: Entity, b: Entity) => {
 
 /** @public */
 export const CatalogTable = (props: CatalogTableProps) => {
-  const { columns, actions, tableOptions, subtitle, emptyContent } = props;
+  const { tableOptions, subtitle, emptyContent } = props;
   const { isStarredEntity, toggleStarredEntity } = useStarredEntities();
   const { loading, error, entities, filters, pageInfo } = useEntityList();
 
@@ -207,16 +207,27 @@ export const CatalogTable = (props: CatalogTableProps) => {
     .filter(s => s)
     .join(' ');
 
+  const columns = props.columns || defaultColumns;
+  const title = `${titleDisplay} (${entities.length})`;
+  const actions = props.actions || defaultActions;
+  const options = {
+    actionsColumnIndex: -1,
+    loadingType: 'linear' as const,
+    showEmptyDataSourceMessage: !loading,
+    padding: 'dense' as const,
+    ...tableOptions,
+  };
+
   if (enablePagination) {
     return (
       <PaginatedCatalogTable
-        columns={columns || defaultColumns}
+        columns={columns}
         emptyContent={emptyContent}
         isLoading={loading}
-        title={`${titleDisplay} (${entities.length})`}
-        actions={actions || defaultActions}
+        title={title}
+        actions={actions}
         subtitle={subtitle}
-        options={tableOptions}
+        options={options}
         data={entities.map(toEntityRow)}
         next={pageInfo.next}
         prev={pageInfo.prev}
@@ -224,67 +235,28 @@ export const CatalogTable = (props: CatalogTableProps) => {
     );
   }
 
-  return (
-    <LegacyCatalogTable
-      columns={columns || defaultColumns}
-      emptyContent={emptyContent}
-      isLoading={loading}
-      title={`${titleDisplay} (${entities.length})`}
-      actions={actions || defaultActions}
-      subtitle={subtitle}
-      data={entities}
-      options={tableOptions}
-    />
-  );
-};
-
-/** @internal */
-function LegacyCatalogTable(props: {
-  actions?: TableProps<CatalogTableRow>['actions'];
-  columns: TableColumn<CatalogTableRow>[];
-  emptyContent: React.ReactNode;
-  data: Entity[];
-  isLoading: boolean;
-  options?: TableProps<CatalogTableRow>['options'];
-  subtitle?: string;
-  title: string;
-}) {
-  const {
-    actions,
-    columns,
-    emptyContent,
-    data,
-    isLoading,
-    subtitle,
-    options,
-    title,
-  } = props;
-
-  const rows = data.sort(refCompare).map(toEntityRow);
-  const showPagination = rows.length > 20;
+  const rows = entities.sort(refCompare).map(toEntityRow);
+  const pageSize = 20;
+  const showPagination = rows.length > pageSize;
 
   return (
     <Table<CatalogTableRow>
-      isLoading={isLoading}
+      isLoading={loading}
       columns={columns}
       options={{
         paging: showPagination,
-        pageSize: 20,
-        actionsColumnIndex: -1,
-        loadingType: 'linear',
-        showEmptyDataSourceMessage: !isLoading,
-        padding: 'dense',
+        pageSize: pageSize,
         pageSizeOptions: [20, 50, 100],
         ...options,
       }}
-      title={title}
+      title={`${titleDisplay} (${entities.length})`}
       data={rows}
       actions={actions}
       subtitle={subtitle}
       emptyContent={emptyContent}
     />
   );
-}
+};
 
 CatalogTable.columns = columnFactories;
 
