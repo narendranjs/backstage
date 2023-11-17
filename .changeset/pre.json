@@ -252,7 +252,41 @@
     "@backstage/plugin-vault": "0.1.21",
     "@backstage/plugin-vault-backend": "0.4.0",
     "@backstage/plugin-vault-node": "0.1.0",
-    "@backstage/plugin-xcmetrics": "0.2.45"
+    "@backstage/plugin-xcmetrics": "0.2.45",
+    "@backstage/frontend-test-utils": "0.0.0",
+    "@backstage/plugin-auth-backend-module-atlassian-provider": "0.0.0"
   },
-  "changesets": []
+  "changesets": [
+    "angry-eagles-end",
+    "angry-gorillas-unite",
+    "angry-walls-despacito",
+    "angry-walls-juggle",
+    "brave-socks-raise",
+    "bright-eyes-film",
+    "chatty-actors-live",
+    "chilled-terms-breathe",
+    "cold-pans-crash",
+    "create-app-1700251144",
+    "curly-walls-relate",
+    "dry-readers-raise",
+    "gentle-lies-greet",
+    "kind-badgers-rush",
+    "long-wolves-return",
+    "lovely-terms-search",
+    "mighty-beans-wink",
+    "nasty-tips-exercise",
+    "perfect-apes-sing",
+    "plenty-numbers-enjoy",
+    "polite-knives-build",
+    "renovate-240982c",
+    "renovate-4891ee7",
+    "renovate-6c0fb81",
+    "renovate-9d2d52e",
+    "renovate-b193efa",
+    "sixty-adults-kiss",
+    "sixty-houses-agree",
+    "tiny-cobras-look",
+    "twenty-beans-laugh",
+    "violet-zebras-thank"
+  ]
 }
