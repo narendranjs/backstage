@@ -13,6 +13,7 @@ metadata:
       icon: github
 spec:
   type: service
+  system: connected-cars-services
   lifecycle: experimental
   owner: team-c
   providesApis:
