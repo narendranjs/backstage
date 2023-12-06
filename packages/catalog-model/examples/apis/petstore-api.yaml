@@ -16,6 +16,7 @@ metadata:
 spec:
   type: openapi
   lifecycle: experimental
+  system: connected-cars-services
   owner: narendran
   definition:
     $text: ./petstore.oas.yaml
